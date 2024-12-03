@@ -15,7 +15,7 @@ const ProductDetailPage: React.FC = () => {
   const { id } = useParams();
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen w-screen">
       <Navbar />
       <div className="container mx-auto px-6 py-20">
         <div className="flex flex-col md:flex-row gap-6">
