@@ -16,7 +16,7 @@ import { Grocery_and_Gourmet_Food } from "./Grocery_and_Gourmet_Food_top3000_met
 import { Handmade_Products } from "./Handmade_Products_top3000_metadata";
 import { Health_and_Household } from "./Health_and_Household_top3000_metadata";
 import { Health_and_Personal_Care } from "./Health_and_Personal_Care_top3000_metadata";
-import { Home_and_Kitchen } from "./Home_and_Kitchen_top3000_metadata";
+// import { Home_and_Kitchen } from "./Home_and_Kitchen_top3000_metadata";
 import { Industrial_and_Scientific } from "./Industrial_and_Scientific_top3000_metadata";
 import { Kindle_Store } from "./Kindle_Store_top3000_metadata";
 import { Magazine_Subscriptions } from "./Magazine_Subscriptions_top3000_metadata";
@@ -119,7 +119,7 @@ export const itemJson: itemJsonType = {
   Handmade_Products: Handmade_Products,
   Health_and_Household: Health_and_Household,
   Health_and_Personal_Care: Health_and_Personal_Care,
-  Home_and_Kitchen: Home_and_Kitchen,
+  // Home_and_Kitchen: Home_and_Kitchen,
   Industrial_and_Scientific: Industrial_and_Scientific,
   Kindle_Store: Kindle_Store,
   Magazine_Subscriptions: Magazine_Subscriptions,
