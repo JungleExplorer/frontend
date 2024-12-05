@@ -1,20 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { itemJson } from "../constants/Items";
 
 interface ProductCardProps {
-  product: {
-    id: number;
-    title: string;
-    average_rating: string;
-    images: { thumb: string[] };
-    price: string;
-  };
+  productIdx: number;
+  category: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ productIdx, category }) => {
+  const product = itemJson[category][productIdx] || {}; // 선택된 카테고리의 상품 가져오기
+
   return (
     <Link
-      to={`/product/${product.id}`}
+      to={`/product/${category}/${productIdx}`}
       className="bg-white rounded-lg shadow-sm hover:shadow-md border border-gray-200 overflow-hidden w-full"
     >
       {/* 이미지 */}
