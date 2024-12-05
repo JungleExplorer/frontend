@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
     if (username.trim()) {
       localStorage.setItem("username", username.trim());
-      navigate("/");
+      window.location.href = "/";
     } else {
       alert("Please enter a username.");
     }
