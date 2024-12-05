@@ -3,10 +3,15 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { itemJson, ItemInfo } from "../constants/Items";
 
-const ProductDetailPage: React.FC = () => {
-  const { category, id } = useParams();
+type Params = {
+  category: string;
+  id: string;
+};
 
-  const productDetails: ItemInfo = itemJson[category!][id!] || {}; // 선택된 카테고리의 상품 가져오기
+const ProductDetailPage: React.FC = () => {
+  const { category, id } = useParams<Params>();
+
+  const productDetails: ItemInfo = itemJson[category!][parseInt(id!)] || {}; // 선택된 카테고리의 상품 가져오기
 
   return (
     <div className="bg-gray-50 min-h-screen w-screen">

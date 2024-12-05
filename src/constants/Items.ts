@@ -5,7 +5,7 @@ import Arts_Crafts_and_Sewing from "./Arts_Crafts_and_Sewing_top3000_metadata.js
 import Automotive from "./Automotive_top3000_metadata.json";
 import Baby_Products from "./Baby_Products_top3000_metadata.json";
 import Beauty_and_Personal_Care from "./Beauty_and_Personal_Care_top3000_metadata.json";
-import Books from "./Books_top3000_metadata.json";
+// import Books from "./Books_top3000_metadata.json";
 import CDs_and_Vinyl from "./CDs_and_Vinyl_top3000_metadata.json";
 import Cell_Phones_and_Accessories from "./Cell_Phones_and_Accessories_top3000_metadata.json";
 import Clothing_Shoes_and_Jewelry from "./Clothing_Shoes_and_Jewelry_top3000_metadata.json";
@@ -18,7 +18,7 @@ import Health_and_Household from "./Health_and_Household_top3000_metadata.json";
 import Health_and_Personal_Care from "./Health_and_Personal_Care_top3000_metadata.json";
 // import Home_and_Kitchen from "./Home_and_Kitchen_top3000_metadata";
 import Industrial_and_Scientific from "./Industrial_and_Scientific_top3000_metadata.json";
-import Kindle_Store from "./Kindle_Store_top3000_metadata.json";
+// import Kindle_Store from "./Kindle_Store_top3000_metadata.json";
 import Magazine_Subscriptions from "./Magazine_Subscriptions_top3000_metadata.json";
 import Movies_and_TV from "./Movies_and_TV_top3000_metadata.json";
 import Musical_Instruments from "./Musical_Instruments_top3000_metadata.json";
