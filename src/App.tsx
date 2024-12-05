@@ -5,10 +5,9 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
-
-const Home = React.lazy(() => import("./pages/Home"));
-const ProductDetailPage = React.lazy(() => import("./pages/ProductDetailPage"));
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 const App: React.FC = () => {
   const username = localStorage.getItem("username");
