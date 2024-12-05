@@ -18,7 +18,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     const user = localStorage.getItem("username");
     if (user) location("/");
-  }, []);
+  }, [location]);
 
   return (
     <div className="w-screen min-h-screen flex items-center justify-center bg-gray-100">
