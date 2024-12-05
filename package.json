@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "postinstall": "npm run build",
-    "serve-heroku": "vite --host 0.0.0.0 --port $PORT preview",
+    "serve-heroku": "serve -s dist",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "serve -s build"
