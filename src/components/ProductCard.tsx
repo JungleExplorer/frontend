@@ -17,8 +17,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ productIdx, category }) => {
     >
       {/* 이미지 */}
       <img
-        src={product.images.thumb[0]}
-        alt={product.title}
+        src={product.images?.thumb || undefined}
+        alt={product.title || undefined}
         className="w-full h-36 object-cover"
       />
       {/* 콘텐츠 */}
@@ -30,7 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ productIdx, category }) => {
           Rating: {product.average_rating}
         </p>
         <p className="text-sm sm:text-base font-bold text-blue-600 mt-2">
-          {product.price}
+          ${product.price}
         </p>
       </div>
     </Link>
