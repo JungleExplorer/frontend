@@ -11,7 +11,6 @@ const ProductDetailPage = React.lazy(() => import("./pages/ProductDetailPage"));
 
 const App: React.FC = () => {
   const username = localStorage.getItem("username");
-  console.log(username);
 
   return (
     <Router>

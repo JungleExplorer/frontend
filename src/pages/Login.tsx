@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
+  const location = useNavigate();
   const [username, setUsername] = useState<string>("");
   // const navigate = useNavigate();
 
@@ -13,6 +14,11 @@ const Login: React.FC = () => {
       alert("Please enter a username.");
     }
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem("username");
+    if (user) location("/");
+  }, []);
 
   return (
     <div className="w-screen min-h-screen flex items-center justify-center bg-gray-100">
