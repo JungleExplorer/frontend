@@ -5,6 +5,6 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: parseInt(process.env.PORT || "3000"), // 환경 변수가 없으면 기본값으로 3000 사용
+    port: parseInt(process.env.PORT!) || 3002, // 환경 변수가 없으면 기본값으로 3000 사용
   },
 });
