@@ -15,10 +15,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
   category,
   product,
 }) => {
+  const onProductClick = async () => {
+    const username = localStorage.getItem("username");
+    try {
+      console.log(product.parent_asin);
+      const res = await fetch(`/api/select/${product.parent_asin}/${username}`);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch item: ${res.status}`);
+      }
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Link
       href={`/product/${category}/${productIdx}`}
       className="bg-white rounded-lg shadow-sm hover:shadow-md border border-gray-200 overflow-hidden w-full"
+      // onClick={onProductClick}
     >
       {/* 이미지 */}
       <div className="relative w-full h-36">
