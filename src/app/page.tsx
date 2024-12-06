@@ -16,6 +16,27 @@ const Home: React.FC = () => {
   const [products, setProducts] = useState<ItemInfo[]>([]);
 
   useEffect(() => {
+    const user = localStorage.getItem("username");
+
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          `/api/recommend/${selectedCategory.toLowerCase()}/${user}`
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const jsonData = await res.json();
+        console.log(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch(`/api/product/${selectedCategory}`);
