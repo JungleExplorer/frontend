@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Navbar from "./components/Navbar";
 import ProductCard from "./components/ProductCard";
 
 import { categoryList, ItemInfo } from "./constants/Items";
 import ColdStartPopup from "./components/ColdStartPopup";
+import { useRouter } from "next/navigation";
 
 const categories = categoryList;
 
@@ -42,6 +42,12 @@ const Home: React.FC = () => {
     fetchProducts();
   }, [selectedCategory]);
 
+  const router = useRouter();
+  useEffect(() => {
+    const user = localStorage.getItem("username");
+    if (!user) router.push("/login");
+  }, []);
+
   useEffect(() => {
     const coldStart = localStorage.getItem("coldstart");
     if (!coldStart) setShowColdStart(true);
@@ -52,6 +58,11 @@ const Home: React.FC = () => {
   };
 
   const handleSubmitRatings = () => {
+    if (Object.keys(ratings).length < 5) {
+      alert("Please rate all 5 products before submitting.");
+      return;
+    }
+
     console.log("Submitted Ratings:", ratings);
     localStorage.setItem("coldstart", "true");
     setShowColdStart(false);
@@ -59,8 +70,6 @@ const Home: React.FC = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen w-screen">
-      <Navbar />
-
       {showColdStart && (
         <ColdStartPopup
           randomProducts={randomProducts}
