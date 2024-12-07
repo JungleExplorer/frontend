@@ -3,15 +3,12 @@
 import { ItemInfo } from "@/constants/Items";
 import { useEffect, useState } from "react";
 
-interface ProductCardProps {
+interface SearchProps {
   category: string;
   setProducts: (products: ItemInfo[]) => void;
 }
 
-export const Search: React.FC<ProductCardProps> = ({
-  category,
-  setProducts,
-}) => {
+export const Search: React.FC<SearchProps> = ({ category, setProducts }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [isFetching, setIsFetching] = useState(false); // 요청 상태 추가

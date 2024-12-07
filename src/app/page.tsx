@@ -23,6 +23,12 @@ const Home: React.FC = () => {
   const [ratings, setRatings] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 추가
 
+  const router = useRouter();
+  useEffect(() => {
+    const user = localStorage.getItem("username");
+    if (!user) router.push("/login");
+  }, []);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -52,12 +58,6 @@ const Home: React.FC = () => {
     };
     fetchProducts();
   }, [selectedCategory]);
-
-  const router = useRouter();
-  useEffect(() => {
-    const user = localStorage.getItem("username");
-    if (!user) router.push("/login");
-  }, []);
 
   useEffect(() => {
     const coldStartData = JSON.parse(localStorage.getItem("coldstart") || "{}");
