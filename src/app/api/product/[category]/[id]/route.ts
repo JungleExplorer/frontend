@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
-import { ItemInfo } from "@/app/constants/Items";
+import { ItemInfo } from "@/constants/Items";
 
 export async function GET(
   req: Request,

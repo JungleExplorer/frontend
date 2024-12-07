@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { ItemInfo } from "@/app/constants/Items";
-import Star from "@/app/components/Star";
+import { ItemInfo } from "@/constants/Items";
+import Star from "@/components/Star";
 
 const ProductDetailPage: React.FC = () => {
   const params = useParams(); // URL 매개변수 가져오기

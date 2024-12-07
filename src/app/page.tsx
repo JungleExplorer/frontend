@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ProductCard from "./components/ProductCard";
+import ProductCard from "../components/ProductCard";
 
-import { categoryList, ItemInfo } from "./constants/Items";
-import ColdStartPopup from "./components/ColdStartPopup";
+import { categoryList, ItemInfo } from "../constants/Items";
+import ColdStartPopup from "../components/ColdStartPopup";
 import { useRouter } from "next/navigation";
 
 const categories = categoryList;
