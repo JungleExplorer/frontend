@@ -180,8 +180,6 @@ const Home: React.FC = () => {
             Explore Products
           </h1>
 
-          <Search setProducts={setProducts} category={selectedCategory} />
-
           <div className="flex justify-center mb-6">
             <select
               value={selectedCategory}
@@ -195,6 +193,8 @@ const Home: React.FC = () => {
               ))}
             </select>
           </div>
+
+          <Search setProducts={setProducts} category={selectedCategory} />
 
           {/* 로딩 상태 표시 */}
           {loading ? (
