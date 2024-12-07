@@ -101,7 +101,7 @@ const Home: React.FC = () => {
     }
 
     const coldStartData = JSON.parse(localStorage.getItem("coldstart") || "{}");
-    coldStartData[selectedCategory] = true; // 현재 카테고리 업데이트
+    coldStartData[selectedCategory] = "true"; // 현재 카테고리 업데이트
     localStorage.setItem("coldstart", JSON.stringify(coldStartData));
 
     setShowColdStart(false);
