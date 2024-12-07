@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
+import { ItemInfo } from "@/app/constants/Items";
 
 export async function GET(
   req: Request,
@@ -23,17 +24,11 @@ export async function GET(
   try {
     // 파일 읽기
     const fileData = fs.readFileSync(filePath, "utf8");
-    const jsonData = JSON.parse(fileData);
+    const jsonData: ItemInfo[] = JSON.parse(fileData);
 
-    // id 유효성 확인
-    const itemIndex = parseInt(id, 10);
-    if (isNaN(itemIndex) || itemIndex < 0 || itemIndex >= jsonData.length) {
-      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
-    }
+    const filteredItems = jsonData.filter((data) => data.parent_asin == id);
 
-    // 요청된 id의 데이터 반환
-    const item = jsonData[itemIndex];
-    return NextResponse.json(item);
+    return NextResponse.json(filteredItems[0]);
   } catch (error) {
     console.error("Error reading file:", error);
     return NextResponse.json({ error: "Error reading file" }, { status: 500 });

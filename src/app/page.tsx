@@ -13,6 +13,10 @@ const Home: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(
     categories[0]
   );
+
+  const [recommendedProducts, setRecommendedProducts] = useState<ItemInfo[]>(
+    []
+  );
   const [products, setProducts] = useState<ItemInfo[]>([]);
   const [showColdStart, setShowColdStart] = useState<boolean>(false);
   const [randomProducts, setRandomProducts] = useState<ItemInfo[]>([]);
@@ -140,7 +144,6 @@ const Home: React.FC = () => {
                   key={index}
                   product={product}
                   category={selectedCategory}
-                  productIdx={index}
                 />
               ))}
             </div>
