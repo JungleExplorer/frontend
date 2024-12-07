@@ -113,35 +113,19 @@ const Home: React.FC = () => {
 
       {!showColdStart && (
         <div className="w-full py-20">
-          <div className="mb-10">
+          <div className="w-full mb-20">
             <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
               Recommended Items
             </h2>
-            <div className="flex overflow-x-auto space-x-4 px-4">
+            <div className="flex w-full space-x-4">
               {products
                 .filter((obj) => recommendedProducts.includes(obj.parent_asin!))
-                .map((item, index) => (
-                  <div
+                .map((product, index) => (
+                  <ProductCard
                     key={index}
-                    className="bg-white shadow-md rounded-lg p-4 flex-shrink-0 w-64"
-                  >
-                    <img
-                      src={
-                        item.images?.thumb || "https://via.placeholder.com/150"
-                      }
-                      alt={item.title}
-                      className="w-full h-40 object-cover rounded-md"
-                    />
-                    <h3 className="text-lg font-semibold text-gray-700 mt-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      Rating: {item.rating}
-                    </p>
-                    <p className="text-sm text-blue-500 font-bold">
-                      ${item.price}
-                    </p>
-                  </div>
+                    product={product}
+                    category={selectedCategory}
+                  />
                 ))}
             </div>
           </div>

@@ -11,6 +11,8 @@ const ProductDetailPage: React.FC = () => {
   const category = params.category as string;
   const id = params.id as string;
 
+  console.log(id);
+
   const [productDetails, setProductDetails] = useState<ItemInfo | null>(null);
   const [rating, setRating] = useState<number>(0); // 별점 상태
 
