@@ -22,8 +22,19 @@ const Home: React.FC = () => {
   const [randomProducts, setRandomProducts] = useState<ItemInfo[]>([]);
   const [ratings, setRatings] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 추가
+  const [showRandom, setShowRandom] = useState<boolean>(false); // 랜덤 상품만 표시할지 여부
+  const [startTime, setStartTime] = useState<number>(0); // 접속 시작 시간
 
   const router = useRouter();
+
+  const handleShowRandom = () => {
+    setShowRandom((prev) => !prev);
+  };
+
+  useEffect(() => {
+    setStartTime(performance.now());
+  }, [showRandom]);
+
   useEffect(() => {
     const user = localStorage.getItem("username");
     if (!user) router.push("/login");
@@ -80,6 +91,15 @@ const Home: React.FC = () => {
       product_id_str: productId,
       rating: rating,
     }));
+
+    const handleProductClick = (product: ItemInfo) => {
+      const elapsedTime = performance.now() - startTime;
+      console.log(
+        `Product "${product.title}" clicked after ${elapsedTime.toFixed(
+          2
+        )} milliseconds`
+      );
+    };
 
     // 추천 알고리즘에 cold start 데이터 보내기
     // JSON 문자열로 직렬화 후 URI 인코딩
@@ -171,6 +191,7 @@ const Home: React.FC = () => {
                     key={index}
                     product={product}
                     category={selectedCategory}
+                    startTime={startTime} // 클릭 핸들러 전달
                   />
                 ))}
             </div>
@@ -179,6 +200,16 @@ const Home: React.FC = () => {
           <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
             Explore Products
           </h1>
+
+          {/* Random 버튼 */}
+          <div className="flex justify-center mb-6">
+            <button
+              onClick={handleShowRandom}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              {showRandom ? "Show All Products" : "Show Random Products"}
+            </button>
+          </div>
 
           <div className="flex justify-center mb-6">
             <select
@@ -203,13 +234,25 @@ const Home: React.FC = () => {
             </div>
           ) : (
             <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 px-2 md:px-4">
-              {products.map((product: ItemInfo, index) => (
-                <ProductCard
-                  key={index}
-                  product={product}
-                  category={selectedCategory}
-                />
-              ))}
+              {!showRandom
+                ? products.map((product: ItemInfo, index) => (
+                    <ProductCard
+                      key={index}
+                      product={product}
+                      category={selectedCategory}
+                      startTime={startTime} // 클릭 핸들러 전달
+                    />
+                  ))
+                : [...products]
+                    .sort(() => 0.5 - Math.random())
+                    .map((product: ItemInfo, index) => (
+                      <ProductCard
+                        key={index}
+                        product={product}
+                        category={selectedCategory}
+                        startTime={startTime} // 클릭 핸들러 전달
+                      />
+                    ))}
             </div>
           )}
         </div>

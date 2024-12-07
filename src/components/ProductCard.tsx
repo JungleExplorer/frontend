@@ -7,10 +7,24 @@ import { ItemInfo } from "../constants/Items";
 interface ProductCardProps {
   product: ItemInfo;
   category: string;
+  startTime: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ category, product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  category,
+  product,
+  startTime,
+}) => {
   const onProductClick = async () => {
+    //log time
+    const elapsedTime = (performance.now() - startTime) / 1000;
+    console.log(
+      `Product "${product.title}" clicked after ${elapsedTime.toFixed(
+        2
+      )} seconds`
+    );
+
+    //send request
     const username = localStorage.getItem("username");
     try {
       const res = await fetch(`/api/select/${product.parent_asin}/${username}`);
@@ -18,7 +32,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ category, product }) => {
         throw new Error(`Failed to fetch item: ${res.status}`);
       }
       const data = await res.json();
-      console.log(data);
     } catch (err) {
       console.error(err);
     }
