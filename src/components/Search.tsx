@@ -61,7 +61,7 @@ export const Search: React.FC<ProductCardProps> = ({
 
   return (
     /* 검색 UI */
-    <div className="flex justify-center mb-6">
+    <div className="flex flex-col justify-center items-center mb-6">
       <input
         type="text"
         placeholder="Search products..."
@@ -73,7 +73,7 @@ export const Search: React.FC<ProductCardProps> = ({
         }`}
       />
       {isFetching && (
-        <div className="text-sm text-gray-500 ml-4">Searching...</div>
+        <div className="text-sm text-gray-500 mt-2">Searching...</div>
       )}
     </div>
   );
