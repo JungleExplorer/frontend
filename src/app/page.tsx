@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const [products, setProducts] = useState<ItemInfo[]>([]);
   const [showColdStart, setShowColdStart] = useState<boolean>(false);
   const [randomProducts, setRandomProducts] = useState<ItemInfo[]>([]);
-  const [ratings, setRatings] = useState<Record<number, number>>({});
+  const [ratings, setRatings] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 추가
 
   useEffect(() => {
@@ -53,17 +53,45 @@ const Home: React.FC = () => {
     if (!coldStart) setShowColdStart(true);
   }, []);
 
-  const handleRatingChange = (productId: number, rating: number) => {
+  const handleRatingChange = (productId: string, rating: number) => {
     setRatings((prev) => ({ ...prev, [productId]: rating }));
   };
 
-  const handleSubmitRatings = () => {
+  const handleSubmitRatings = async () => {
     if (Object.keys(ratings).length < 5) {
       alert("Please rate all 5 products before submitting.");
       return;
     }
 
-    console.log("Submitted Ratings:", ratings);
+    const userReviews = Object.entries(ratings).map(([productId, rating]) => ({
+      product_id_str: productId,
+      rating: rating,
+    }));
+
+    // JSON 문자열로 직렬화 후 URI 인코딩
+    const queryParam = encodeURIComponent(
+      JSON.stringify({ user_reviews: userReviews })
+    );
+    const url = `/api/recommend/${selectedCategory}?data=${queryParam}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "GET", // HTTP 메서드 설정
+        headers: {
+          "Content-Type": "application/json", // JSON 데이터임을 명시
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json(); // 응답 데이터를 JSON으로 변환
+      console.log("Response from API:", data);
+    } catch (error) {
+      console.error("Error in GET request:", error);
+    }
+
     localStorage.setItem("coldstart", "true");
     setShowColdStart(false);
   };

@@ -15,7 +15,6 @@ export async function GET(
     `${category}_top3000_metadata.json`
   );
 
-  console.log(filePath);
   // 파일 존재 여부 확인
   if (!fs.existsSync(filePath)) {
     return NextResponse.json({ error: "File not found" }, { status: 404 });

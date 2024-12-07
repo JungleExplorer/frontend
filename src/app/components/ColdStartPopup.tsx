@@ -5,8 +5,8 @@ import Star from "./Star";
 
 interface ColdStartPopupProps {
   randomProducts: ItemInfo[];
-  ratings: Record<number, number>;
-  handleRatingChange: (productId: number, rating: number) => void;
+  ratings: Record<string, number>;
+  handleRatingChange: (productId: string, rating: number) => void;
   handleSubmitRatings: () => void;
   selectedCategory: string;
 }
@@ -46,8 +46,10 @@ const ColdStartPopup: React.FC<ColdStartPopupProps> = ({
                 {[1, 2, 3, 4, 5].map((rating) => (
                   <Star
                     key={rating}
-                    filled={ratings[index] >= rating} // 선택된 별 여부
-                    onClick={() => handleRatingChange(index, rating)} // 클릭 핸들러
+                    filled={ratings[product.parent_asin!] >= rating} // 선택된 별 여부
+                    onClick={() =>
+                      handleRatingChange(product.parent_asin!, rating)
+                    } // 클릭 핸들러
                   />
                 ))}
               </div>

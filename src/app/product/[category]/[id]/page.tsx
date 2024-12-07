@@ -31,8 +31,39 @@ const ProductDetailPage: React.FC = () => {
     fetchItem();
   }, [category, id]);
 
-  const handleSubmitReview = () => {
-    console.log("Submitted Rating:", rating);
+  const handleSubmitReview = async () => {
+    const userReviews = [
+      {
+        product_id_str: productDetails?.parent_asin,
+        rating: rating,
+      },
+    ];
+
+    // JSON 문자열로 직렬화 후 URI 인코딩
+    const queryParam = encodeURIComponent(
+      JSON.stringify({ user_reviews: userReviews })
+    );
+
+    const url = `/api/recommend/${category}?data=${queryParam}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "GET", // HTTP 메서드 설정
+        headers: {
+          "Content-Type": "application/json", // JSON 데이터임을 명시
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json(); // 응답 데이터를 JSON으로 변환
+      console.log("Response from API:", data);
+    } catch (error) {
+      console.error("Error in GET request:", error);
+    }
+
     alert("Your rating has been submitted!");
     // 여기에서 API를 호출하여 별점을 저장할 수 있습니다.
     setRating(0);

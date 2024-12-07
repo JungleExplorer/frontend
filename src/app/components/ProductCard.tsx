@@ -18,13 +18,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const onProductClick = async () => {
     const username = localStorage.getItem("username");
     try {
-      console.log(product.parent_asin);
       const res = await fetch(`/api/select/${product.parent_asin}/${username}`);
       if (!res.ok) {
         throw new Error(`Failed to fetch item: ${res.status}`);
       }
       const data = await res.json();
-      console.log(data);
     } catch (err) {
       console.error(err);
     }
