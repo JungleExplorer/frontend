@@ -6,6 +6,7 @@ import ProductCard from "../components/ProductCard";
 import { categoryList, ItemInfo } from "../constants/Items";
 import ColdStartPopup from "../components/ColdStartPopup";
 import { useRouter } from "next/navigation";
+import { useRecommendedItems } from "@/context/RecmmendedItemsContext";
 
 const categories = categoryList;
 
@@ -13,10 +14,8 @@ const Home: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(
     categories[0]
   );
+  const { recommendedProducts, setRecommendedProducts } = useRecommendedItems();
 
-  const [recommendedProducts, setRecommendedProducts] = useState<ItemInfo[]>(
-    []
-  );
   const [products, setProducts] = useState<ItemInfo[]>([]);
   const [showColdStart, setShowColdStart] = useState<boolean>(false);
   const [randomProducts, setRandomProducts] = useState<ItemInfo[]>([]);
@@ -90,8 +89,8 @@ const Home: React.FC = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json(); // 응답 데이터를 JSON으로 변환
-      console.log("Response from API:", data);
+      const { data } = await response.json(); // 응답 데이터를 JSON으로 변환
+      setRecommendedProducts(data);
     } catch (error) {
       console.error("Error in GET request:", error);
     }
@@ -114,6 +113,39 @@ const Home: React.FC = () => {
 
       {!showColdStart && (
         <div className="w-full py-20">
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              Recommended Items
+            </h2>
+            <div className="flex overflow-x-auto space-x-4 px-4">
+              {products
+                .filter((obj) => recommendedProducts.includes(obj.parent_asin!))
+                .map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white shadow-md rounded-lg p-4 flex-shrink-0 w-64"
+                  >
+                    <img
+                      src={
+                        item.images?.thumb || "https://via.placeholder.com/150"
+                      }
+                      alt={item.title}
+                      className="w-full h-40 object-cover rounded-md"
+                    />
+                    <h3 className="text-lg font-semibold text-gray-700 mt-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Rating: {item.rating}
+                    </p>
+                    <p className="text-sm text-blue-500 font-bold">
+                      ${item.price}
+                    </p>
+                  </div>
+                ))}
+            </div>
+          </div>
+
           <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
             Explore Products
           </h1>
