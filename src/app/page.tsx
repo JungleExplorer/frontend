@@ -122,6 +122,7 @@ const Home: React.FC = () => {
       );
     }
 
+    setRatings({});
     setShowColdStart(false);
   };
 
