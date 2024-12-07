@@ -31,7 +31,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
       if (!res.ok) {
         throw new Error(`Failed to fetch item: ${res.status}`);
       }
-      const data = await res.json();
     } catch (err) {
       console.error(err);
     }

@@ -92,15 +92,6 @@ const Home: React.FC = () => {
       rating: rating,
     }));
 
-    const handleProductClick = (product: ItemInfo) => {
-      const elapsedTime = performance.now() - startTime;
-      console.log(
-        `Product "${product.title}" clicked after ${elapsedTime.toFixed(
-          2
-        )} milliseconds`
-      );
-    };
-
     // 추천 알고리즘에 cold start 데이터 보내기
     // JSON 문자열로 직렬화 후 URI 인코딩
     const queryParam = encodeURIComponent(
