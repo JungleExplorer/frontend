@@ -11,16 +11,17 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ category, product }) => {
   const onProductClick = async () => {
-    // const username = localStorage.getItem("username");
-    // try {
-    //   const res = await fetch(`/api/select/${product.parent_asin}/${username}`);
-    //   if (!res.ok) {
-    //     throw new Error(`Failed to fetch item: ${res.status}`);
-    //   }
-    //   const data = await res.json();
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    const username = localStorage.getItem("username");
+    try {
+      const res = await fetch(`/api/select/${product.parent_asin}/${username}`);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch item: ${res.status}`);
+      }
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

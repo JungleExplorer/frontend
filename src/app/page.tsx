@@ -7,6 +7,7 @@ import { categoryList, ItemInfo } from "../constants/Items";
 import ColdStartPopup from "../components/ColdStartPopup";
 import { useRouter } from "next/navigation";
 import { useRecommendedItems } from "@/context/RecmmendedItemsContext";
+import { Search } from "@/components/Search";
 
 const categories = categoryList;
 
@@ -26,13 +27,20 @@ const Home: React.FC = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true); // 로딩 시작
-        const res = await fetch(`/api/product/${selectedCategory}`);
+        // const res = await fetch(`/api/product/${selectedCategory}`);
+        // if (!res.ok) throw new Error("Failed to fetch data");
+
+        // const jsonData = await res.json();
+        // setProducts(jsonData);
+        const username = localStorage.getItem("username");
+        const res = await fetch(`/api/list/${selectedCategory}/${username}`);
         if (!res.ok) throw new Error("Failed to fetch data");
 
-        const jsonData = await res.json();
-        setProducts(jsonData);
+        const data = await res.json();
+        const { items } = data;
+        setProducts(items);
 
-        const randomSelection = jsonData
+        const randomSelection = [...items]
           .sort(() => 0.5 - Math.random())
           .slice(0, 5);
         setRandomProducts(randomSelection);
@@ -73,6 +81,7 @@ const Home: React.FC = () => {
       rating: rating,
     }));
 
+    // 추천 알고리즘에 cold start 데이터 보내기
     // JSON 문자열로 직렬화 후 URI 인코딩
     const queryParam = encodeURIComponent(
       JSON.stringify({ user_reviews: userReviews })
@@ -100,6 +109,7 @@ const Home: React.FC = () => {
       console.error("Error in GET request:", error);
     }
 
+    //localstorage에 coldstart값 저장
     try {
       // localStorage에서 데이터 가져오기
       let coldStartData = JSON.parse(localStorage.getItem("coldstart") || "{}");
@@ -169,6 +179,8 @@ const Home: React.FC = () => {
           <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
             Explore Products
           </h1>
+
+          <Search setProducts={setProducts} category={selectedCategory} />
 
           <div className="flex justify-center mb-6">
             <select
