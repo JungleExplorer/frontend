@@ -50,7 +50,11 @@ const Home: React.FC = () => {
         // const jsonData = await res.json();
         // setProducts(jsonData);
         const username = localStorage.getItem("username");
-        const res = await fetch(`/api/list/${selectedCategory}/${username}`);
+
+        // const res = await fetch(`/api/list/${selectedCategory}/${username}`);
+        const res = await fetch(
+          `https://rating.server.unknownpgr.com/list/${selectedCategory}?username=${username}`
+        );
         if (!res.ok) throw new Error("Failed to fetch data");
 
         const data = await res.json();
