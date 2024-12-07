@@ -52,9 +52,11 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const coldStart = localStorage.getItem("coldstart");
-    if (!coldStart) setShowColdStart(true);
-  }, []);
+    const coldStartData = JSON.parse(localStorage.getItem("coldstart") || "{}");
+    if (!coldStartData[selectedCategory]) {
+      setShowColdStart(true);
+    }
+  }, [selectedCategory]);
 
   const handleRatingChange = (productId: string, rating: number) => {
     setRatings((prev) => ({ ...prev, [productId]: rating }));
@@ -95,7 +97,10 @@ const Home: React.FC = () => {
       console.error("Error in GET request:", error);
     }
 
-    localStorage.setItem("coldstart", "true");
+    const coldStartData = JSON.parse(localStorage.getItem("coldstart") || "{}");
+    coldStartData[selectedCategory] = true; // 현재 카테고리 업데이트
+    localStorage.setItem("coldstart", JSON.stringify(coldStartData));
+
     setShowColdStart(false);
   };
 
