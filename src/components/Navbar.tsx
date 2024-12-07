@@ -18,6 +18,7 @@ const Navbar: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("username"); // localStorage에서 username 제거
+    localStorage.removeItem("coldstart"); // localStorage에서 coldstart 제거
     router.push("/login"); // 로그인 페이지로 리다이렉트
   };
 
