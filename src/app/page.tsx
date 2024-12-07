@@ -92,7 +92,10 @@ const Home: React.FC = () => {
       }
 
       const { data } = await response.json(); // 응답 데이터를 JSON으로 변환
-      setRecommendedProducts(data);
+      setRecommendedProducts((prev) => ({
+        ...prev,
+        [selectedCategory]: data,
+      }));
     } catch (error) {
       console.error("Error in GET request:", error);
     }
@@ -124,7 +127,11 @@ const Home: React.FC = () => {
             </h2>
             <div className="flex w-full space-x-4">
               {products
-                .filter((obj) => recommendedProducts.includes(obj.parent_asin!))
+                .filter((obj) =>
+                  recommendedProducts[selectedCategory]?.includes(
+                    obj.parent_asin!
+                  )
+                )
                 .map((product, index) => (
                   <ProductCard
                     key={index}

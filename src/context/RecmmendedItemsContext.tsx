@@ -10,9 +10,15 @@ import React, {
 
 const LOCAL_STORAGE_KEY = "recommendedProducts";
 
+interface RecommendedItems {
+  [categoryName: string]: string[]; // Category-based structure
+}
+
 const RecommendedItemContext = createContext<{
-  recommendedProducts: string[];
-  setRecommendedProducts: React.Dispatch<React.SetStateAction<string[]>>;
+  recommendedProducts: RecommendedItems;
+  setRecommendedProducts: React.Dispatch<
+    React.SetStateAction<RecommendedItems>
+  >;
 } | null>(null);
 
 export const RecommendedItemProvider = ({
@@ -20,7 +26,9 @@ export const RecommendedItemProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const [recommendedItems, setRecommendedItems] = useState<string[]>([]);
+  const [recommendedItems, setRecommendedItems] = useState<RecommendedItems>(
+    {}
+  );
 
   // Load from localStorage when the app starts
   useEffect(() => {

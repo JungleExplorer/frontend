@@ -1,4 +1,3 @@
-import Error from "next/error";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -27,7 +26,6 @@ export async function GET(
 
     // 타겟 서버로 요청 보내기
     const targetUrl = `http://rst0070.duckdns.org:3005/list/${category}`;
-
     const response = await fetch(targetUrl, {
       method: "POST",
       headers: {
@@ -46,7 +44,8 @@ export async function GET(
     const data = await response.json();
 
     return NextResponse.json({ success: true, data });
-  } catch (error: any) {
+  } catch (error) {
+    console.log(error);
     return NextResponse.json({ error: "Invalid JSON format" }, { status: 400 });
   }
 }
