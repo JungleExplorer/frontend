@@ -20,11 +20,7 @@ export async function GET(
     // 타겟 서버로 요청 보내기
     const targetUrl = `https://rating.server.unknownpgr.com/list/${category}?username=${username}`;
 
-    const startTime = performance.now();
     const response = await fetch(targetUrl);
-    const endTime = performance.now();
-
-    console.log("Elapsed time:", (endTime - startTime).toFixed(2), "ms");
 
     if (!response.ok) {
       return NextResponse.json(
