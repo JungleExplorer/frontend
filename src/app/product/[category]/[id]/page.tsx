@@ -1,20 +1,23 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { ItemInfo } from "@/constants/Items";
 import Star from "@/components/Star";
+import { useRecommendedItems } from "@/context/RecmmendedItemsContext";
 
 const ProductDetailPage: React.FC = () => {
   const params = useParams(); // URL 매개변수 가져오기
   const category = params.category as string;
   const id = params.id as string;
 
-  console.log(id);
+  const { setRecommendedProducts } = useRecommendedItems();
 
   const [productDetails, setProductDetails] = useState<ItemInfo | null>(null);
   const [rating, setRating] = useState<number>(0); // 별점 상태
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -60,8 +63,15 @@ const ProductDetailPage: React.FC = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json(); // 응답 데이터를 JSON으로 변환
+      const { data } = await response.json(); // 응답 데이터를 JSON으로 변환
       console.log("Response from API:", data);
+
+      setRecommendedProducts((prev) => ({
+        ...prev,
+        [category]: data,
+      }));
+
+      router.push("/");
     } catch (error) {
       console.error("Error in GET request:", error);
     }
