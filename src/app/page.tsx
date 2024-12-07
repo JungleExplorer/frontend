@@ -100,9 +100,27 @@ const Home: React.FC = () => {
       console.error("Error in GET request:", error);
     }
 
-    const coldStartData = JSON.parse(localStorage.getItem("coldstart") || "{}");
-    coldStartData[selectedCategory] = "true"; // 현재 카테고리 업데이트
-    localStorage.setItem("coldstart", JSON.stringify(coldStartData));
+    try {
+      // localStorage에서 데이터 가져오기
+      let coldStartData = JSON.parse(localStorage.getItem("coldstart") || "{}");
+
+      // 데이터가 객체가 아닐 경우 기본 객체로 초기화
+      if (typeof coldStartData !== "object" || coldStartData === null) {
+        coldStartData = {};
+      }
+
+      // 카테고리 데이터 업데이트
+      coldStartData[selectedCategory] = true; // boolean 값을 저장
+      localStorage.setItem("coldstart", JSON.stringify(coldStartData));
+    } catch (error) {
+      console.error("Error handling coldstart data:", error);
+
+      // localStorage에 기본값 설정
+      localStorage.setItem(
+        "coldstart",
+        JSON.stringify({ [selectedCategory]: true })
+      );
+    }
 
     setShowColdStart(false);
   };
