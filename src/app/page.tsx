@@ -128,15 +128,20 @@ const Home: React.FC = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen w-screen">
-      {showColdStart && (
-        <ColdStartPopup
-          randomProducts={randomProducts}
-          ratings={ratings}
-          handleRatingChange={handleRatingChange}
-          handleSubmitRatings={handleSubmitRatings}
-          selectedCategory={selectedCategory}
-        />
-      )}
+      {showColdStart &&
+        (loading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <ColdStartPopup
+            randomProducts={randomProducts}
+            ratings={ratings}
+            handleRatingChange={handleRatingChange}
+            handleSubmitRatings={handleSubmitRatings}
+            selectedCategory={selectedCategory}
+          />
+        ))}
 
       {!showColdStart && (
         <div className="w-full py-20">
